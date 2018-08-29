@@ -14,16 +14,17 @@ If you want to display Teads ads in your iOS application through MoPub mediation
 
 - [x] Displaying Teads interstitials
 - [x] Displaying Teads rewarded ads
+- [x] Displaying Teads banners
 
 ## Installation
 
 Before installing Teads adapter, you need to implement [MoPub Ads](https://developers.mopub.com/docs/ios/) in your application.
 
-### CocoaPods (recommended)
+#### CocoaPods
 
 If your project is managing dependencies through [CocoaPods](https://cocoapods.org/), you just need to add this pod in your `Podfile`.
 
-**It will install Teads adapter and Teads SDK.**
+It will install Teads adapter and Teads SDK.
 
 1. Add pod named `MoPub-Teads-Adapters` in your Podfile:
 
@@ -36,10 +37,10 @@ pod 'MoPub-Teads-Adapters'
 3. Follow the [Define Custom Event](#define-custom-event) step to finish the integration.
 4. You’re done.
 
-### Manually
+#### Manually
 
 1. Integrate latest version of Teads SDK to your project using this [Quick Start Guide](http://mobile.teads.tv/sdk/documentation/v4/ios/get-started).
-2. Download latest release of [`TeadsMoPubAdapter`](https://github.com/teads/TeadsSDK-adapter-mopub-ios/releases).
+2. Download latest release of [`TeadsMoPubAdapter`](https://github.com/teads/TeadsSDK-iOS/releases).
 3. Drop adapter files in your iOS project.
 4. Follow the [Define Custom Event](#define-custom-event) step to finish the integration.
 5. You’re done.
@@ -59,6 +60,7 @@ When creating a custom SDK network, you are required to define these information
 
 1. For `Custom Event Class` parameter, you need to use one of these names depending on ad type:
 
+- Banner ad: `MPAdapterTeadsBanner`
 - Interstitial ad: `MPAdapterTeadsInterstitial`
 - Rewarded ad: `MPAdapterTeadsRewardedVideo`
 
@@ -69,6 +71,35 @@ When creating a custom SDK network, you are required to define these information
 ```
 
 **Important note #1:** Don't forget to replace `__publisher_PID__` with your Teads placement ID.
+
+**Important note #2:** Depending on your integration method, you need to prefix `Custom Event Class` like this:
+
+- if you're using our Objective-C framework or standalone class files:
+  - Banner ad: `MPAdapterTeadsBanner`
+  - Interstitial ad: `MPAdapterTeadsInterstitial`
+  - Rewarded ad: `MPAdapterTeadsRewardedVideo`
+
+- if you're using our Swift framework:
+  - Banner ad: `TeadsMoPubAdapter.MPAdapterTeadsBanner`
+  - Interstitial ad: `TeadsMoPubAdapter.MPAdapterTeadsInterstitial`
+  - Rewarded ad: `TeadsMoPubAdapter.MPAdapterTeadsRewardedVideo`
+
+- if you're using our Swift standalone class files:
+  - Banner ad: `__module_name__.MPAdapterTeadsBanner`
+  - Interstitial ad: `__module_name__.MPAdapterTeadsInterstitial`
+  - Rewarded ad: `__module_name__.MPAdapterTeadsRewardedVideo`
+
+Where you need to replace `__module_name__` by the name of your app/framework module in which you integrate the adapter:
+- `appName`
+- `appName_targetName` (if you have multiple targets in your project or if the project name is different from the target name) 
+
+Remember to replace any non-alphanumeric characters such as dashes with underscores.
+
+**Example #1:** If you add a Teads interstitial placement in MoPub and you integrate the adapter through our Swift class files in a Swift app named "Demo", you'll use `Demo.MPAdapterTeadsInterstitial` for `Custom Event Class`.
+
+**Example #2:** If you add a Teads rewarded ad placement in MoPub and you integrate the adapter through our Swift framework in a Swift app named "Demo", you'll use `TeadsMoPubAdapter.MPAdapterTeadsRewardedVideo` for `Custom Event Class`.
+
+**Example #3:** If you add a Teads banner placement in MoPub and you integrate the adapter through our ObjC class files in an ObjC app named "Demo", you'll use `MPAdapterTeadsBanner` for `Custom Event Class`.
 
 ### Mediation Settings
 
