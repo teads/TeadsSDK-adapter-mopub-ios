@@ -38,6 +38,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// Brand safety url
 @property (nonatomic, strong) NSString *publisherPageUrl;
 
+// GDPR consent
+@property (nonatomic, strong) NSString *consent;
+
+@property (nonatomic, strong) NSString *subjectToGDPR;
+
 // MARK: - Helpers
 
 /// Creates an instance of `TeadsAdSettings` configured from mediation settings.

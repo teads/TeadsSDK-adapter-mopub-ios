@@ -15,6 +15,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Constants used by Teads adapter.
 static NSString * const kTeadsPIDKey = @"PID";
+static NSString * const kTeadsDebugKey = @"debugMode";
+static NSString * const kTeadsConsentKey = @"consent";
+static NSString * const kTeadsSubjectToGDPRKey = @"subjectToGDPR";
+static NSString * const kTeadsPageUrlKey = @"pageUrl";
+static NSString * const kTeadsDisableLocationKey = @"disableLocation";
+static NSString * const kTeadsDisableMediaPreloadKey = @"disableMediaPreload";
+static NSString * const kTeadsEnableLightEndScreenKey = @"enableLigtEndScreen";
 static NSString * const TeadsAdapterErrorDomain = @"tv.teads.adapter.mopub";
 
 /// Enumeration defining possible errors in Teads adapter.
