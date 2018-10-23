@@ -22,6 +22,7 @@ static NSString * const kTeadsPageUrlKey = @"pageUrl";
 static NSString * const kTeadsDisableLocationKey = @"disableLocation";
 static NSString * const kTeadsDisableMediaPreloadKey = @"disableMediaPreload";
 static NSString * const kTeadsEnableLightEndScreenKey = @"enableLigtEndScreen";
+static NSString * const kTeadsaudioSessionIsApplicationManagedKey = @"audioSessionIsApplicationManaged";
 static NSString * const TeadsAdapterErrorDomain = @"tv.teads.adapter.mopub";
 
 /// Enumeration defining possible errors in Teads adapter.

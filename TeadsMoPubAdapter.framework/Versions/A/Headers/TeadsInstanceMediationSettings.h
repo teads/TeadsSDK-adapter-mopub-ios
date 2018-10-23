@@ -43,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *subjectToGDPR;
 
+@property (nonatomic, assign) BOOL audioSessionIsApplicationManaged;
+
 // MARK: - Helpers
 
 /// Creates an instance of `TeadsAdSettings` configured from mediation settings.
