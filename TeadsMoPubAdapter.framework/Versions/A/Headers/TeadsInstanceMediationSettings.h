@@ -51,6 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// - returns: A `TeadsAdSettings` containing settings to configure Teads ads.
 - (TeadsAdSettings *)getTeadsAdSettings;
 
++ (TeadsAdSettings*) adSettingsFromInfos: (NSDictionary*) settingsDict;
 @end
 
 NS_ASSUME_NONNULL_END
