@@ -25,6 +25,9 @@ static NSString * const kTeadsEnableLightEndScreenKey = @"enableLigtEndScreen";
 static NSString * const kTeadsaudioSessionIsApplicationManagedKey = @"audioSessionIsApplicationManaged";
 static NSString * const TeadsAdapterErrorDomain = @"tv.teads.adapter.mopub";
 
+static NSString* const mediationKey = @"mediation";
+static NSString* const mediationMoPub = @"mopub";
+
 /// Enumeration defining possible errors in Teads adapter.
 enum {
     PIDNotFound,
