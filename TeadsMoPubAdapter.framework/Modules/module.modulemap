@@ -1,15 +1,11 @@
 framework module TeadsMoPubAdapter {
   umbrella header "TeadsMoPubAdapter.h"
-  
+
   export *
   module * { export * }
-  
-  link framework "Foundation"
-  link framework "UIKit"
-  
-  header "MPAdapterTeadsBanner.h"
-  header "MPAdapterTeadsConstants.h"
-  header "MPAdapterTeadsInterstitial.h"
-  header "MPAdapterTeadsRewardedVideo.h"
-  header "TeadsInstanceMediationSettings.h"
+}
+
+module TeadsMoPubAdapter.Swift {
+    header "TeadsMoPubAdapter-Swift.h"
+    requires objc
 }
