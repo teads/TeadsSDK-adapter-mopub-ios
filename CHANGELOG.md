@@ -1,5 +1,9 @@
 # Teads - iOS MoPub Mediation Adapter
 
+### v4.6.1
+_2020-03-09_
+- Enable bitcode build
+
 ### v4.6.0
 _2020-02-06_
 - Updated minimum required Teads SDK to v4.6.0
