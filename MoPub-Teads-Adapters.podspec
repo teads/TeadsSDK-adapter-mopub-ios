@@ -23,6 +23,4 @@ Pod::Spec.new do |s|
     s.dependency                'TeadsSDK', "#{s.version}"
     s.dependency                'mopub-ios-sdk', '>= 5.5'
 
-    s.pod_target_xcconfig       = { 'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES' }
-
 end
