@@ -1,5 +1,9 @@
 # Teads - iOS MoPub Mediation Adapter
 
+### v4.7.0
+_2020-05-25_
+- Adapter settings redesign to TeadsAdSettings
+
 ### v4.6.2
 _2020-04-21_
 - Enable [ABI](https://swift.org/blog/abi-stability-and-more/)

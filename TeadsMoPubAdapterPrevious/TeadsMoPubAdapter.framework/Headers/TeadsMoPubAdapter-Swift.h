@@ -175,7 +175,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import CoreGraphics;
 @import Foundation;
 @import MoPub;
-@import ObjectiveC;
 @import TeadsSDK;
 #endif
 
@@ -193,6 +192,12 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma clang attribute push(__attribute__((external_source_symbol(language="Swift", defined_in="TeadsMoPubAdapter",generated_declaration))), apply_to=any(function,enum,objc_interface,objc_category,objc_protocol))
 # pragma pop_macro("any")
 #endif
+
+@class TeadsAdSettings;
+
+@interface MPAdView (SWIFT_EXTENSION(TeadsMoPubAdapter))
+- (void)registerWithTeadsAdSettings:(TeadsAdSettings * _Nonnull)teadsAdSettings;
+@end
 
 
 SWIFT_CLASS("_TtC17TeadsMoPubAdapter20MPAdapterTeadsBanner")
@@ -215,46 +220,6 @@ SWIFT_CLASS("_TtC17TeadsMoPubAdapter20MPAdapterTeadsBanner")
 - (void)adDidCloseFullscreen:(TFAAdView * _Nonnull)ad;
 - (void)adPlaybackChange:(TFAAdView * _Nonnull)ad state:(enum TeadsAdPlaybackState)state;
 - (void)adDidChangeVolume:(TFAAdView * _Nonnull)ad muted:(BOOL)muted;
-@end
-
-@class TeadsAdSettings;
-
-/// Class encapsulating extra parameters for Teads custom events.
-SWIFT_CLASS("_TtC17TeadsMoPubAdapter20MPAdapterTeadsExtras")
-@interface MPAdapterTeadsExtras : NSObject
-/// Enable test mode
-@property (nonatomic) BOOL debugMode;
-/// Enable location reporting
-@property (nonatomic) BOOL reportLocation;
-/// Enable light mode for endscreen
-@property (nonatomic) BOOL lightEndscreenMode;
-/// Enable media preloading
-@property (nonatomic) BOOL mediaPreloadEnabled;
-/// Brand safety url
-@property (nonatomic, copy) NSString * _Nullable pageUrl;
-/// Consent string for GDPR
-@property (nonatomic, copy) NSString * _Nullable consent;
-@property (nonatomic, copy) NSString * _Nullable subjectToGDPR;
-@property (nonatomic) BOOL audioSessionIsApplicationManaged;
-@property (nonatomic) BOOL enableValidationMode;
-/// U.S privacy string
-@property (nonatomic, copy) NSString * _Nullable usPrivacy;
-/// Creates an instance of <code>TeadsAdSettings</code> configured from ad network extra parameters.
-/// <ul>
-///   <li>
-///     Doc for <a href="https://developers.google.com/admob/ios/api/reference/Classes/GADRequest#-registeradnetworkextras">GADRequest</a>
-///   </li>
-/// </ul>
-///
-/// returns:
-/// A <code>TeadsAdSettings</code> containing settings to configure Teads ads.
-- (TeadsAdSettings * _Nonnull)getTeadsAdSettings SWIFT_WARN_UNUSED_RESULT;
-/// Return a dictionary representation of the current MPAdapterTeadsExtras object.
-///
-/// returns:
-/// A <code>[AnyHashable: Any]</code> representing the object.
-- (NSDictionary * _Nullable)toDictionaryAndReturnError:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -305,32 +270,6 @@ SWIFT_CLASS("_TtC17TeadsMoPubAdapter27MPAdapterTeadsRewardedVideo")
 @end
 
 
-
-
-SWIFT_CLASS("_TtC17TeadsMoPubAdapter30TeadsInstanceMediationSettings")
-@interface TeadsInstanceMediationSettings : NSObject <MPMediationSettingsProtocol>
-/// Enable test mode
-@property (nonatomic) BOOL debugMode;
-/// Disable location reporting
-@property (nonatomic) BOOL locationDisabled;
-/// Enable light mode for endscreen
-@property (nonatomic) BOOL lightEndscreen;
-/// Disable media preloading
-@property (nonatomic) BOOL mediaPreloadDisabled;
-/// Brand safety url
-@property (nonatomic, copy) NSString * _Nonnull publisherPageUrl;
-@property (nonatomic, copy) NSString * _Nonnull consent;
-@property (nonatomic, copy) NSString * _Nonnull subjectToGDPR;
-@property (nonatomic) BOOL audioSessionIsApplicationManaged;
-@property (nonatomic) BOOL enableValidationMode;
-/// Creates an instance of <code>TeadsAdSettings</code> configured from mediation settings.
-///
-/// returns:
-/// A <code>TeadsAdSettings</code> containing settings to configure Teads ads.
-- (TeadsAdSettings * _Nonnull)getTeadsAdSettings SWIFT_WARN_UNUSED_RESULT;
-+ (TeadsAdSettings * _Nonnull)getTeadsAdSettingsWithInfo:(NSDictionary * _Nonnull)info SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
@@ -509,7 +448,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import CoreGraphics;
 @import Foundation;
 @import MoPub;
-@import ObjectiveC;
 @import TeadsSDK;
 #endif
 
@@ -527,6 +465,12 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma clang attribute push(__attribute__((external_source_symbol(language="Swift", defined_in="TeadsMoPubAdapter",generated_declaration))), apply_to=any(function,enum,objc_interface,objc_category,objc_protocol))
 # pragma pop_macro("any")
 #endif
+
+@class TeadsAdSettings;
+
+@interface MPAdView (SWIFT_EXTENSION(TeadsMoPubAdapter))
+- (void)registerWithTeadsAdSettings:(TeadsAdSettings * _Nonnull)teadsAdSettings;
+@end
 
 
 SWIFT_CLASS("_TtC17TeadsMoPubAdapter20MPAdapterTeadsBanner")
@@ -549,46 +493,6 @@ SWIFT_CLASS("_TtC17TeadsMoPubAdapter20MPAdapterTeadsBanner")
 - (void)adDidCloseFullscreen:(TFAAdView * _Nonnull)ad;
 - (void)adPlaybackChange:(TFAAdView * _Nonnull)ad state:(enum TeadsAdPlaybackState)state;
 - (void)adDidChangeVolume:(TFAAdView * _Nonnull)ad muted:(BOOL)muted;
-@end
-
-@class TeadsAdSettings;
-
-/// Class encapsulating extra parameters for Teads custom events.
-SWIFT_CLASS("_TtC17TeadsMoPubAdapter20MPAdapterTeadsExtras")
-@interface MPAdapterTeadsExtras : NSObject
-/// Enable test mode
-@property (nonatomic) BOOL debugMode;
-/// Enable location reporting
-@property (nonatomic) BOOL reportLocation;
-/// Enable light mode for endscreen
-@property (nonatomic) BOOL lightEndscreenMode;
-/// Enable media preloading
-@property (nonatomic) BOOL mediaPreloadEnabled;
-/// Brand safety url
-@property (nonatomic, copy) NSString * _Nullable pageUrl;
-/// Consent string for GDPR
-@property (nonatomic, copy) NSString * _Nullable consent;
-@property (nonatomic, copy) NSString * _Nullable subjectToGDPR;
-@property (nonatomic) BOOL audioSessionIsApplicationManaged;
-@property (nonatomic) BOOL enableValidationMode;
-/// U.S privacy string
-@property (nonatomic, copy) NSString * _Nullable usPrivacy;
-/// Creates an instance of <code>TeadsAdSettings</code> configured from ad network extra parameters.
-/// <ul>
-///   <li>
-///     Doc for <a href="https://developers.google.com/admob/ios/api/reference/Classes/GADRequest#-registeradnetworkextras">GADRequest</a>
-///   </li>
-/// </ul>
-///
-/// returns:
-/// A <code>TeadsAdSettings</code> containing settings to configure Teads ads.
-- (TeadsAdSettings * _Nonnull)getTeadsAdSettings SWIFT_WARN_UNUSED_RESULT;
-/// Return a dictionary representation of the current MPAdapterTeadsExtras object.
-///
-/// returns:
-/// A <code>[AnyHashable: Any]</code> representing the object.
-- (NSDictionary * _Nullable)toDictionaryAndReturnError:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -639,32 +543,6 @@ SWIFT_CLASS("_TtC17TeadsMoPubAdapter27MPAdapterTeadsRewardedVideo")
 @end
 
 
-
-
-SWIFT_CLASS("_TtC17TeadsMoPubAdapter30TeadsInstanceMediationSettings")
-@interface TeadsInstanceMediationSettings : NSObject <MPMediationSettingsProtocol>
-/// Enable test mode
-@property (nonatomic) BOOL debugMode;
-/// Disable location reporting
-@property (nonatomic) BOOL locationDisabled;
-/// Enable light mode for endscreen
-@property (nonatomic) BOOL lightEndscreen;
-/// Disable media preloading
-@property (nonatomic) BOOL mediaPreloadDisabled;
-/// Brand safety url
-@property (nonatomic, copy) NSString * _Nonnull publisherPageUrl;
-@property (nonatomic, copy) NSString * _Nonnull consent;
-@property (nonatomic, copy) NSString * _Nonnull subjectToGDPR;
-@property (nonatomic) BOOL audioSessionIsApplicationManaged;
-@property (nonatomic) BOOL enableValidationMode;
-/// Creates an instance of <code>TeadsAdSettings</code> configured from mediation settings.
-///
-/// returns:
-/// A <code>TeadsAdSettings</code> containing settings to configure Teads ads.
-- (TeadsAdSettings * _Nonnull)getTeadsAdSettings SWIFT_WARN_UNUSED_RESULT;
-+ (TeadsAdSettings * _Nonnull)getTeadsAdSettingsWithInfo:(NSDictionary * _Nonnull)info SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
@@ -847,7 +725,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import CoreGraphics;
 @import Foundation;
 @import MoPub;
-@import ObjectiveC;
 @import TeadsSDK;
 #endif
 
@@ -865,6 +742,12 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma clang attribute push(__attribute__((external_source_symbol(language="Swift", defined_in="TeadsMoPubAdapter",generated_declaration))), apply_to=any(function,enum,objc_interface,objc_category,objc_protocol))
 # pragma pop_macro("any")
 #endif
+
+@class TeadsAdSettings;
+
+@interface MPAdView (SWIFT_EXTENSION(TeadsMoPubAdapter))
+- (void)registerWithTeadsAdSettings:(TeadsAdSettings * _Nonnull)teadsAdSettings;
+@end
 
 
 SWIFT_CLASS("_TtC17TeadsMoPubAdapter20MPAdapterTeadsBanner")
@@ -887,46 +770,6 @@ SWIFT_CLASS("_TtC17TeadsMoPubAdapter20MPAdapterTeadsBanner")
 - (void)adDidCloseFullscreen:(TFAAdView * _Nonnull)ad;
 - (void)adPlaybackChange:(TFAAdView * _Nonnull)ad state:(enum TeadsAdPlaybackState)state;
 - (void)adDidChangeVolume:(TFAAdView * _Nonnull)ad muted:(BOOL)muted;
-@end
-
-@class TeadsAdSettings;
-
-/// Class encapsulating extra parameters for Teads custom events.
-SWIFT_CLASS("_TtC17TeadsMoPubAdapter20MPAdapterTeadsExtras")
-@interface MPAdapterTeadsExtras : NSObject
-/// Enable test mode
-@property (nonatomic) BOOL debugMode;
-/// Enable location reporting
-@property (nonatomic) BOOL reportLocation;
-/// Enable light mode for endscreen
-@property (nonatomic) BOOL lightEndscreenMode;
-/// Enable media preloading
-@property (nonatomic) BOOL mediaPreloadEnabled;
-/// Brand safety url
-@property (nonatomic, copy) NSString * _Nullable pageUrl;
-/// Consent string for GDPR
-@property (nonatomic, copy) NSString * _Nullable consent;
-@property (nonatomic, copy) NSString * _Nullable subjectToGDPR;
-@property (nonatomic) BOOL audioSessionIsApplicationManaged;
-@property (nonatomic) BOOL enableValidationMode;
-/// U.S privacy string
-@property (nonatomic, copy) NSString * _Nullable usPrivacy;
-/// Creates an instance of <code>TeadsAdSettings</code> configured from ad network extra parameters.
-/// <ul>
-///   <li>
-///     Doc for <a href="https://developers.google.com/admob/ios/api/reference/Classes/GADRequest#-registeradnetworkextras">GADRequest</a>
-///   </li>
-/// </ul>
-///
-/// returns:
-/// A <code>TeadsAdSettings</code> containing settings to configure Teads ads.
-- (TeadsAdSettings * _Nonnull)getTeadsAdSettings SWIFT_WARN_UNUSED_RESULT;
-/// Return a dictionary representation of the current MPAdapterTeadsExtras object.
-///
-/// returns:
-/// A <code>[AnyHashable: Any]</code> representing the object.
-- (NSDictionary * _Nullable)toDictionaryAndReturnError:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -977,32 +820,6 @@ SWIFT_CLASS("_TtC17TeadsMoPubAdapter27MPAdapterTeadsRewardedVideo")
 @end
 
 
-
-
-SWIFT_CLASS("_TtC17TeadsMoPubAdapter30TeadsInstanceMediationSettings")
-@interface TeadsInstanceMediationSettings : NSObject <MPMediationSettingsProtocol>
-/// Enable test mode
-@property (nonatomic) BOOL debugMode;
-/// Disable location reporting
-@property (nonatomic) BOOL locationDisabled;
-/// Enable light mode for endscreen
-@property (nonatomic) BOOL lightEndscreen;
-/// Disable media preloading
-@property (nonatomic) BOOL mediaPreloadDisabled;
-/// Brand safety url
-@property (nonatomic, copy) NSString * _Nonnull publisherPageUrl;
-@property (nonatomic, copy) NSString * _Nonnull consent;
-@property (nonatomic, copy) NSString * _Nonnull subjectToGDPR;
-@property (nonatomic) BOOL audioSessionIsApplicationManaged;
-@property (nonatomic) BOOL enableValidationMode;
-/// Creates an instance of <code>TeadsAdSettings</code> configured from mediation settings.
-///
-/// returns:
-/// A <code>TeadsAdSettings</code> containing settings to configure Teads ads.
-- (TeadsAdSettings * _Nonnull)getTeadsAdSettings SWIFT_WARN_UNUSED_RESULT;
-+ (TeadsAdSettings * _Nonnull)getTeadsAdSettingsWithInfo:(NSDictionary * _Nonnull)info SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
@@ -1181,7 +998,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import CoreGraphics;
 @import Foundation;
 @import MoPub;
-@import ObjectiveC;
 @import TeadsSDK;
 #endif
 
@@ -1199,6 +1015,12 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma clang attribute push(__attribute__((external_source_symbol(language="Swift", defined_in="TeadsMoPubAdapter",generated_declaration))), apply_to=any(function,enum,objc_interface,objc_category,objc_protocol))
 # pragma pop_macro("any")
 #endif
+
+@class TeadsAdSettings;
+
+@interface MPAdView (SWIFT_EXTENSION(TeadsMoPubAdapter))
+- (void)registerWithTeadsAdSettings:(TeadsAdSettings * _Nonnull)teadsAdSettings;
+@end
 
 
 SWIFT_CLASS("_TtC17TeadsMoPubAdapter20MPAdapterTeadsBanner")
@@ -1221,46 +1043,6 @@ SWIFT_CLASS("_TtC17TeadsMoPubAdapter20MPAdapterTeadsBanner")
 - (void)adDidCloseFullscreen:(TFAAdView * _Nonnull)ad;
 - (void)adPlaybackChange:(TFAAdView * _Nonnull)ad state:(enum TeadsAdPlaybackState)state;
 - (void)adDidChangeVolume:(TFAAdView * _Nonnull)ad muted:(BOOL)muted;
-@end
-
-@class TeadsAdSettings;
-
-/// Class encapsulating extra parameters for Teads custom events.
-SWIFT_CLASS("_TtC17TeadsMoPubAdapter20MPAdapterTeadsExtras")
-@interface MPAdapterTeadsExtras : NSObject
-/// Enable test mode
-@property (nonatomic) BOOL debugMode;
-/// Enable location reporting
-@property (nonatomic) BOOL reportLocation;
-/// Enable light mode for endscreen
-@property (nonatomic) BOOL lightEndscreenMode;
-/// Enable media preloading
-@property (nonatomic) BOOL mediaPreloadEnabled;
-/// Brand safety url
-@property (nonatomic, copy) NSString * _Nullable pageUrl;
-/// Consent string for GDPR
-@property (nonatomic, copy) NSString * _Nullable consent;
-@property (nonatomic, copy) NSString * _Nullable subjectToGDPR;
-@property (nonatomic) BOOL audioSessionIsApplicationManaged;
-@property (nonatomic) BOOL enableValidationMode;
-/// U.S privacy string
-@property (nonatomic, copy) NSString * _Nullable usPrivacy;
-/// Creates an instance of <code>TeadsAdSettings</code> configured from ad network extra parameters.
-/// <ul>
-///   <li>
-///     Doc for <a href="https://developers.google.com/admob/ios/api/reference/Classes/GADRequest#-registeradnetworkextras">GADRequest</a>
-///   </li>
-/// </ul>
-///
-/// returns:
-/// A <code>TeadsAdSettings</code> containing settings to configure Teads ads.
-- (TeadsAdSettings * _Nonnull)getTeadsAdSettings SWIFT_WARN_UNUSED_RESULT;
-/// Return a dictionary representation of the current MPAdapterTeadsExtras object.
-///
-/// returns:
-/// A <code>[AnyHashable: Any]</code> representing the object.
-- (NSDictionary * _Nullable)toDictionaryAndReturnError:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -1311,32 +1093,6 @@ SWIFT_CLASS("_TtC17TeadsMoPubAdapter27MPAdapterTeadsRewardedVideo")
 @end
 
 
-
-
-SWIFT_CLASS("_TtC17TeadsMoPubAdapter30TeadsInstanceMediationSettings")
-@interface TeadsInstanceMediationSettings : NSObject <MPMediationSettingsProtocol>
-/// Enable test mode
-@property (nonatomic) BOOL debugMode;
-/// Disable location reporting
-@property (nonatomic) BOOL locationDisabled;
-/// Enable light mode for endscreen
-@property (nonatomic) BOOL lightEndscreen;
-/// Disable media preloading
-@property (nonatomic) BOOL mediaPreloadDisabled;
-/// Brand safety url
-@property (nonatomic, copy) NSString * _Nonnull publisherPageUrl;
-@property (nonatomic, copy) NSString * _Nonnull consent;
-@property (nonatomic, copy) NSString * _Nonnull subjectToGDPR;
-@property (nonatomic) BOOL audioSessionIsApplicationManaged;
-@property (nonatomic) BOOL enableValidationMode;
-/// Creates an instance of <code>TeadsAdSettings</code> configured from mediation settings.
-///
-/// returns:
-/// A <code>TeadsAdSettings</code> containing settings to configure Teads ads.
-- (TeadsAdSettings * _Nonnull)getTeadsAdSettings SWIFT_WARN_UNUSED_RESULT;
-+ (TeadsAdSettings * _Nonnull)getTeadsAdSettingsWithInfo:(NSDictionary * _Nonnull)info SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
