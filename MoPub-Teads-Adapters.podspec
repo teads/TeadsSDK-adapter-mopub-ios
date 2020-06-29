@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
     s.name                      = 'MoPub-Teads-Adapters'
-    s.version                   = '4.7.2'
+    s.version                   = '4.7.3'
     s.summary                   = "MoPub Adapter for Teads' iOS SDK"
     s.description               = <<-DESC
                                 Use this adapter to include MoPub as a demand source in your mediation waterfall
@@ -21,6 +21,6 @@ Pod::Spec.new do |s|
     s.framework                 = 'TeadsMoPubAdapter'
 
     s.dependency                'TeadsSDK', "#{s.version}"
-    s.dependency                'mopub-ios-sdk', '>= 5.5'
+    s.dependency                'mopub-ios-sdk', '>= 5.6'
 
 end

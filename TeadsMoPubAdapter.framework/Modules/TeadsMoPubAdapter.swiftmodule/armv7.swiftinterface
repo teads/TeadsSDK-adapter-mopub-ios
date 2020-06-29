@@ -6,6 +6,7 @@ import MoPub
 import Swift
 @_exported import TeadsMoPubAdapter
 import TeadsSDK
+import UIKit
 @objc public class MPAdapterTeadsInterstitial : MPInterstitialCustomEvent {
   @objc override dynamic public func requestInterstitial(withCustomEventInfo info: [Swift.AnyHashable : Any]!, adMarkup: Swift.String!)
   @objc override dynamic public init()
@@ -41,7 +42,28 @@ extension MPAdapterTeadsRewardedVideo : TeadsSDK.TFARewardedAdDelegate {
   @objc dynamic public func rewardedAdDidClose(_ rewardedAd: TeadsSDK.TFARewardedAd)
   @objc dynamic public func rewardedAdBrowserDidOpen(_ rewardedAd: TeadsSDK.TFARewardedAd)
 }
+@objc public class MPAdapterTeadsNative : MPNativeCustomEvent {
+  @objc override dynamic public func requestAd(withCustomEventInfo info: [Swift.AnyHashable : Any]!, adMarkup: Swift.String!)
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension MPAdapterTeadsNative : TeadsSDK.TeadsAdPlacementDelegate {
+  @objc dynamic public func adPlacement(_ adPlacement: TeadsSDK.TeadsAdPlacement, didReceiveNativeAd nativeAd: TeadsSDK.TeadsNativeAd)
+  @objc dynamic public func adPlacement(_ adPlacement: TeadsSDK.TeadsAdPlacement, didFailToReceiveAd adFailReason: TeadsSDK.AdFailReason)
+}
+@objc public class MPAdapterTeadsNativeAdRendererSettings : ObjectiveC.NSObject, MPNativeAdRendererSettings {
+  @objc public var viewSizeHandler: MPNativeViewSizeHandler!
+  @objc public var renderingViewClass: Swift.AnyClass?
+  @objc public var adViewContainer: UIKit.UIView?
+  @objc override dynamic public init()
+  @objc deinit
+}
 @objc extension MPAdView {
+  @objc dynamic public func register(teadsAdSettings: TeadsSDK.TeadsAdSettings)
+}
+extension TeadsAdSettings : MPMediationSettingsProtocol {
+}
+@objc extension MPNativeAdRequestTargeting {
   @objc dynamic public func register(teadsAdSettings: TeadsSDK.TeadsAdSettings)
 }
 public struct MPAdapterTeadsConstants {
@@ -71,6 +93,14 @@ extension MPAdapterTeadsBanner : TeadsSDK.TFAAdDelegate {
   @objc dynamic public func adDidCloseFullscreen(_ ad: TeadsSDK.TFAAdView)
   @objc dynamic public func adPlaybackChange(_ ad: TeadsSDK.TFAAdView, state: TeadsSDK.TFAAdView.TeadsAdPlaybackState)
   @objc dynamic public func adDidChangeVolume(_ ad: TeadsSDK.TFAAdView, muted: Swift.Bool)
+}
+@objc public class MPAdapterTeadsNativeAdRenderer : ObjectiveC.NSObject, MPNativeAdRenderer {
+  @objc public var viewSizeHandler: MPNativeViewSizeHandler!
+  @objc required public init!(rendererSettings: MPNativeAdRendererSettings!)
+  @objc public static func rendererConfiguration(with rendererSettings: MPNativeAdRendererSettings!) -> MPNativeAdRendererConfiguration!
+  @objc public func retrieveView(with adapter: MPNativeAdAdapter!) throws -> UIKit.UIView
+  @objc override dynamic public init()
+  @objc deinit
 }
 extension TeadsMoPubAdapter.TeadsAdapterErrorCode : Swift.Equatable {}
 extension TeadsMoPubAdapter.TeadsAdapterErrorCode : Swift.Hashable {}

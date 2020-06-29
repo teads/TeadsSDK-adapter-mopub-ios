@@ -190,6 +190,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import CoreGraphics;
 @import Foundation;
 @import MoPub;
+@import ObjectiveC;
 @import TeadsSDK;
 #endif
 
@@ -258,6 +259,51 @@ SWIFT_CLASS("_TtC17TeadsMoPubAdapter26MPAdapterTeadsInterstitial")
 - (void)interstitialWillLeaveApplication:(TFAInterstitialAd * _Nonnull)ad;
 @end
 
+
+SWIFT_CLASS("_TtC17TeadsMoPubAdapter20MPAdapterTeadsNative")
+@interface MPAdapterTeadsNative : MPNativeCustomEvent
+- (void)requestAdWithCustomEventInfo:(NSDictionary * _Null_unspecified)info adMarkup:(NSString * _Null_unspecified)adMarkup;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class TeadsAdPlacement;
+@class TeadsNativeAd;
+
+@interface MPAdapterTeadsNative (SWIFT_EXTENSION(TeadsMoPubAdapter)) <TeadsAdPlacementDelegate>
+- (void)adPlacement:(TeadsAdPlacement * _Nonnull)adPlacement didReceiveNativeAd:(TeadsNativeAd * _Nonnull)nativeAd;
+- (void)adPlacement:(TeadsAdPlacement * _Nonnull)adPlacement didFailToReceiveAd:(AdFailReason * _Nonnull)adFailReason;
+@end
+
+@protocol MPNativeAdRendererSettings;
+@class MPNativeAdRendererConfiguration;
+@protocol MPNativeAdAdapter;
+@class UIView;
+
+SWIFT_CLASS("_TtC17TeadsMoPubAdapter30MPAdapterTeadsNativeAdRenderer")
+@interface MPAdapterTeadsNativeAdRenderer : NSObject <MPNativeAdRenderer>
+@property (nonatomic, copy) MPNativeViewSizeHandler _Null_unspecified viewSizeHandler;
+/// Renderer settings are objects that allow you to expose configurable properties to the
+/// application. MPAdapterTeadsNativeAdRenderer renderer will be initialized with these settings.
+- (null_unspecified instancetype)initWithRendererSettings:(id <MPNativeAdRendererSettings> _Null_unspecified)rendererSettings OBJC_DESIGNATED_INITIALIZER;
+/// Construct and return an MPNativeAdRendererConfiguration object, you must set all the properties
+/// on the configuration object.
++ (MPNativeAdRendererConfiguration * _Null_unspecified)rendererConfigurationWithRendererSettings:(id <MPNativeAdRendererSettings> _Null_unspecified)rendererSettings SWIFT_WARN_UNUSED_RESULT;
+/// Returns an ad view rendered using provided |adapter|. Sets an |error| if any error is
+/// encountered.
+- (UIView * _Nullable)retrieveViewWithAdapter:(id <MPNativeAdAdapter> _Null_unspecified)adapter error:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS("_TtC17TeadsMoPubAdapter38MPAdapterTeadsNativeAdRendererSettings")
+@interface MPAdapterTeadsNativeAdRendererSettings : NSObject <MPNativeAdRendererSettings>
+@property (nonatomic, copy) MPNativeViewSizeHandler _Null_unspecified viewSizeHandler;
+@property (nonatomic) Class _Nullable renderingViewClass;
+@property (nonatomic, strong) UIView * _Nullable adViewContainer;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class UIViewController;
 
 SWIFT_CLASS("_TtC17TeadsMoPubAdapter27MPAdapterTeadsRewardedVideo")
@@ -285,6 +331,15 @@ SWIFT_CLASS("_TtC17TeadsMoPubAdapter27MPAdapterTeadsRewardedVideo")
 @end
 
 
+@interface MPNativeAdRequestTargeting (SWIFT_EXTENSION(TeadsMoPubAdapter))
+- (void)registerWithTeadsAdSettings:(TeadsAdSettings * _Nonnull)teadsAdSettings;
+@end
+
+
+
+
+@interface TeadsAdSettings (SWIFT_EXTENSION(TeadsMoPubAdapter)) <MPMediationSettingsProtocol>
+@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
@@ -478,6 +533,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import CoreGraphics;
 @import Foundation;
 @import MoPub;
+@import ObjectiveC;
 @import TeadsSDK;
 #endif
 
@@ -546,6 +602,51 @@ SWIFT_CLASS("_TtC17TeadsMoPubAdapter26MPAdapterTeadsInterstitial")
 - (void)interstitialWillLeaveApplication:(TFAInterstitialAd * _Nonnull)ad;
 @end
 
+
+SWIFT_CLASS("_TtC17TeadsMoPubAdapter20MPAdapterTeadsNative")
+@interface MPAdapterTeadsNative : MPNativeCustomEvent
+- (void)requestAdWithCustomEventInfo:(NSDictionary * _Null_unspecified)info adMarkup:(NSString * _Null_unspecified)adMarkup;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class TeadsAdPlacement;
+@class TeadsNativeAd;
+
+@interface MPAdapterTeadsNative (SWIFT_EXTENSION(TeadsMoPubAdapter)) <TeadsAdPlacementDelegate>
+- (void)adPlacement:(TeadsAdPlacement * _Nonnull)adPlacement didReceiveNativeAd:(TeadsNativeAd * _Nonnull)nativeAd;
+- (void)adPlacement:(TeadsAdPlacement * _Nonnull)adPlacement didFailToReceiveAd:(AdFailReason * _Nonnull)adFailReason;
+@end
+
+@protocol MPNativeAdRendererSettings;
+@class MPNativeAdRendererConfiguration;
+@protocol MPNativeAdAdapter;
+@class UIView;
+
+SWIFT_CLASS("_TtC17TeadsMoPubAdapter30MPAdapterTeadsNativeAdRenderer")
+@interface MPAdapterTeadsNativeAdRenderer : NSObject <MPNativeAdRenderer>
+@property (nonatomic, copy) MPNativeViewSizeHandler _Null_unspecified viewSizeHandler;
+/// Renderer settings are objects that allow you to expose configurable properties to the
+/// application. MPAdapterTeadsNativeAdRenderer renderer will be initialized with these settings.
+- (null_unspecified instancetype)initWithRendererSettings:(id <MPNativeAdRendererSettings> _Null_unspecified)rendererSettings OBJC_DESIGNATED_INITIALIZER;
+/// Construct and return an MPNativeAdRendererConfiguration object, you must set all the properties
+/// on the configuration object.
++ (MPNativeAdRendererConfiguration * _Null_unspecified)rendererConfigurationWithRendererSettings:(id <MPNativeAdRendererSettings> _Null_unspecified)rendererSettings SWIFT_WARN_UNUSED_RESULT;
+/// Returns an ad view rendered using provided |adapter|. Sets an |error| if any error is
+/// encountered.
+- (UIView * _Nullable)retrieveViewWithAdapter:(id <MPNativeAdAdapter> _Null_unspecified)adapter error:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS("_TtC17TeadsMoPubAdapter38MPAdapterTeadsNativeAdRendererSettings")
+@interface MPAdapterTeadsNativeAdRendererSettings : NSObject <MPNativeAdRendererSettings>
+@property (nonatomic, copy) MPNativeViewSizeHandler _Null_unspecified viewSizeHandler;
+@property (nonatomic) Class _Nullable renderingViewClass;
+@property (nonatomic, strong) UIView * _Nullable adViewContainer;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class UIViewController;
 
 SWIFT_CLASS("_TtC17TeadsMoPubAdapter27MPAdapterTeadsRewardedVideo")
@@ -573,6 +674,15 @@ SWIFT_CLASS("_TtC17TeadsMoPubAdapter27MPAdapterTeadsRewardedVideo")
 @end
 
 
+@interface MPNativeAdRequestTargeting (SWIFT_EXTENSION(TeadsMoPubAdapter))
+- (void)registerWithTeadsAdSettings:(TeadsAdSettings * _Nonnull)teadsAdSettings;
+@end
+
+
+
+
+@interface TeadsAdSettings (SWIFT_EXTENSION(TeadsMoPubAdapter)) <MPMediationSettingsProtocol>
+@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
@@ -770,6 +880,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import CoreGraphics;
 @import Foundation;
 @import MoPub;
+@import ObjectiveC;
 @import TeadsSDK;
 #endif
 
@@ -838,6 +949,51 @@ SWIFT_CLASS("_TtC17TeadsMoPubAdapter26MPAdapterTeadsInterstitial")
 - (void)interstitialWillLeaveApplication:(TFAInterstitialAd * _Nonnull)ad;
 @end
 
+
+SWIFT_CLASS("_TtC17TeadsMoPubAdapter20MPAdapterTeadsNative")
+@interface MPAdapterTeadsNative : MPNativeCustomEvent
+- (void)requestAdWithCustomEventInfo:(NSDictionary * _Null_unspecified)info adMarkup:(NSString * _Null_unspecified)adMarkup;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class TeadsAdPlacement;
+@class TeadsNativeAd;
+
+@interface MPAdapterTeadsNative (SWIFT_EXTENSION(TeadsMoPubAdapter)) <TeadsAdPlacementDelegate>
+- (void)adPlacement:(TeadsAdPlacement * _Nonnull)adPlacement didReceiveNativeAd:(TeadsNativeAd * _Nonnull)nativeAd;
+- (void)adPlacement:(TeadsAdPlacement * _Nonnull)adPlacement didFailToReceiveAd:(AdFailReason * _Nonnull)adFailReason;
+@end
+
+@protocol MPNativeAdRendererSettings;
+@class MPNativeAdRendererConfiguration;
+@protocol MPNativeAdAdapter;
+@class UIView;
+
+SWIFT_CLASS("_TtC17TeadsMoPubAdapter30MPAdapterTeadsNativeAdRenderer")
+@interface MPAdapterTeadsNativeAdRenderer : NSObject <MPNativeAdRenderer>
+@property (nonatomic, copy) MPNativeViewSizeHandler _Null_unspecified viewSizeHandler;
+/// Renderer settings are objects that allow you to expose configurable properties to the
+/// application. MPAdapterTeadsNativeAdRenderer renderer will be initialized with these settings.
+- (null_unspecified instancetype)initWithRendererSettings:(id <MPNativeAdRendererSettings> _Null_unspecified)rendererSettings OBJC_DESIGNATED_INITIALIZER;
+/// Construct and return an MPNativeAdRendererConfiguration object, you must set all the properties
+/// on the configuration object.
++ (MPNativeAdRendererConfiguration * _Null_unspecified)rendererConfigurationWithRendererSettings:(id <MPNativeAdRendererSettings> _Null_unspecified)rendererSettings SWIFT_WARN_UNUSED_RESULT;
+/// Returns an ad view rendered using provided |adapter|. Sets an |error| if any error is
+/// encountered.
+- (UIView * _Nullable)retrieveViewWithAdapter:(id <MPNativeAdAdapter> _Null_unspecified)adapter error:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS("_TtC17TeadsMoPubAdapter38MPAdapterTeadsNativeAdRendererSettings")
+@interface MPAdapterTeadsNativeAdRendererSettings : NSObject <MPNativeAdRendererSettings>
+@property (nonatomic, copy) MPNativeViewSizeHandler _Null_unspecified viewSizeHandler;
+@property (nonatomic) Class _Nullable renderingViewClass;
+@property (nonatomic, strong) UIView * _Nullable adViewContainer;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class UIViewController;
 
 SWIFT_CLASS("_TtC17TeadsMoPubAdapter27MPAdapterTeadsRewardedVideo")
@@ -865,6 +1021,15 @@ SWIFT_CLASS("_TtC17TeadsMoPubAdapter27MPAdapterTeadsRewardedVideo")
 @end
 
 
+@interface MPNativeAdRequestTargeting (SWIFT_EXTENSION(TeadsMoPubAdapter))
+- (void)registerWithTeadsAdSettings:(TeadsAdSettings * _Nonnull)teadsAdSettings;
+@end
+
+
+
+
+@interface TeadsAdSettings (SWIFT_EXTENSION(TeadsMoPubAdapter)) <MPMediationSettingsProtocol>
+@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
@@ -1058,6 +1223,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import CoreGraphics;
 @import Foundation;
 @import MoPub;
+@import ObjectiveC;
 @import TeadsSDK;
 #endif
 
@@ -1126,6 +1292,51 @@ SWIFT_CLASS("_TtC17TeadsMoPubAdapter26MPAdapterTeadsInterstitial")
 - (void)interstitialWillLeaveApplication:(TFAInterstitialAd * _Nonnull)ad;
 @end
 
+
+SWIFT_CLASS("_TtC17TeadsMoPubAdapter20MPAdapterTeadsNative")
+@interface MPAdapterTeadsNative : MPNativeCustomEvent
+- (void)requestAdWithCustomEventInfo:(NSDictionary * _Null_unspecified)info adMarkup:(NSString * _Null_unspecified)adMarkup;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class TeadsAdPlacement;
+@class TeadsNativeAd;
+
+@interface MPAdapterTeadsNative (SWIFT_EXTENSION(TeadsMoPubAdapter)) <TeadsAdPlacementDelegate>
+- (void)adPlacement:(TeadsAdPlacement * _Nonnull)adPlacement didReceiveNativeAd:(TeadsNativeAd * _Nonnull)nativeAd;
+- (void)adPlacement:(TeadsAdPlacement * _Nonnull)adPlacement didFailToReceiveAd:(AdFailReason * _Nonnull)adFailReason;
+@end
+
+@protocol MPNativeAdRendererSettings;
+@class MPNativeAdRendererConfiguration;
+@protocol MPNativeAdAdapter;
+@class UIView;
+
+SWIFT_CLASS("_TtC17TeadsMoPubAdapter30MPAdapterTeadsNativeAdRenderer")
+@interface MPAdapterTeadsNativeAdRenderer : NSObject <MPNativeAdRenderer>
+@property (nonatomic, copy) MPNativeViewSizeHandler _Null_unspecified viewSizeHandler;
+/// Renderer settings are objects that allow you to expose configurable properties to the
+/// application. MPAdapterTeadsNativeAdRenderer renderer will be initialized with these settings.
+- (null_unspecified instancetype)initWithRendererSettings:(id <MPNativeAdRendererSettings> _Null_unspecified)rendererSettings OBJC_DESIGNATED_INITIALIZER;
+/// Construct and return an MPNativeAdRendererConfiguration object, you must set all the properties
+/// on the configuration object.
++ (MPNativeAdRendererConfiguration * _Null_unspecified)rendererConfigurationWithRendererSettings:(id <MPNativeAdRendererSettings> _Null_unspecified)rendererSettings SWIFT_WARN_UNUSED_RESULT;
+/// Returns an ad view rendered using provided |adapter|. Sets an |error| if any error is
+/// encountered.
+- (UIView * _Nullable)retrieveViewWithAdapter:(id <MPNativeAdAdapter> _Null_unspecified)adapter error:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS("_TtC17TeadsMoPubAdapter38MPAdapterTeadsNativeAdRendererSettings")
+@interface MPAdapterTeadsNativeAdRendererSettings : NSObject <MPNativeAdRendererSettings>
+@property (nonatomic, copy) MPNativeViewSizeHandler _Null_unspecified viewSizeHandler;
+@property (nonatomic) Class _Nullable renderingViewClass;
+@property (nonatomic, strong) UIView * _Nullable adViewContainer;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class UIViewController;
 
 SWIFT_CLASS("_TtC17TeadsMoPubAdapter27MPAdapterTeadsRewardedVideo")
@@ -1153,6 +1364,15 @@ SWIFT_CLASS("_TtC17TeadsMoPubAdapter27MPAdapterTeadsRewardedVideo")
 @end
 
 
+@interface MPNativeAdRequestTargeting (SWIFT_EXTENSION(TeadsMoPubAdapter))
+- (void)registerWithTeadsAdSettings:(TeadsAdSettings * _Nonnull)teadsAdSettings;
+@end
+
+
+
+
+@interface TeadsAdSettings (SWIFT_EXTENSION(TeadsMoPubAdapter)) <MPMediationSettingsProtocol>
+@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
