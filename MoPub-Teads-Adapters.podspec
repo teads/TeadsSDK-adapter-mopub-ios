@@ -1,8 +1,9 @@
 Pod::Spec.new do |s|
 
     s.name                      = 'MoPub-Teads-Adapters'
-    s.version                   = '4.7.3'
+    s.version                   = '4.7.4'
     s.summary                   = "MoPub Adapter for Teads' iOS SDK"
+    s.module_name               = 'TeadsMoPubAdapter'
     s.description               = <<-DESC
                                 Use this adapter to include MoPub as a demand source in your mediation waterfall
                                 DESC
@@ -11,14 +12,13 @@ Pod::Spec.new do |s|
     s.license                   = { :type => 'Copyright', :text => 'Copyright Teads 2020' }
     s.authors                   = { 'Teads' => 'support-sdk@teads.tv'}
 
-    s.source                    = { :git => 'https://github.com/teads/TeadsSDK-adapter-mopub-ios.git', :branch => 'master', :tag => "v#{s.version}"}
+    s.source                    = { :git => 'https://github.com/teads/TeadsSDK-adapter-mopub-ios.git', :tag => "v#{s.version}"}
     s.platform                  = 'ios'
     s.ios.deployment_target     = '9.0'
     s.static_framework          = true
     s.requires_arc              = true
-    s.ios.vendored_frameworks   = 'TeadsMoPubAdapter.framework'
-    s.preserve_paths            = 'TeadsMoPubAdapter.framework'
-    s.framework                 = 'TeadsMoPubAdapter'
+    s.source_files              = 'TeadsMoPubAdapter/**/*{.swift}'
+    s.swift_versions            = ['4.3', '5.0', '5.1']
 
     s.dependency                'TeadsSDK', "#{s.version}"
     s.dependency                'mopub-ios-sdk', '>= 5.6'
