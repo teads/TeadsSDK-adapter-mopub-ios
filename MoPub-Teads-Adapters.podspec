@@ -21,6 +21,6 @@ Pod::Spec.new do |s|
     s.swift_versions            = ['4.3', '5.0', '5.1']
 
     s.dependency                'TeadsSDK', "#{s.version}"
-    s.dependency                'mopub-ios-sdk', '>= 5.6'
+    s.dependency                'mopub-ios-sdk', '>= 5.6', '< 5.13'
 
 end
