@@ -115,23 +115,22 @@ import TeadsSDK
     }
 
     func registerContainer() {
-        guard let adapter = adapter as? MPAdapterTeadsMediatedNativeAd else {
+        guard let adapter = adapter as? MPAdapterTeadsMediatedNativeAd,
+            let adViewContainerFrame = adViewContainer?.frame else {
             return
         }
         if let renderingViewClass = renderingViewClass,
             renderingViewClass.responds(to: Selector("nibForAd")) {
             adView = renderingViewClass.nibForAd?()?.instantiate(withOwner: self, options: nil).first as? UIView
         } else if let renderingViewClass = renderingViewClass as? UIView.Type {
-            guard let frame = adViewContainer?.frame else {
-                return
-            }
-            adView = renderingViewClass.init(frame: frame)
-            guard let adView = adView else {
-                return
-            }
-            adapter.teadsNativeAd.registerContainer(in: adView)
+            adView = renderingViewClass.init(frame: adViewContainerFrame)
         }
-        adView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        guard let adView = adView else {
+            return
+        }
+        adView.frame = adViewContainerFrame
+        adView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        adapter.teadsNativeAd.registerContainer(in: adView)
     }
 
     func register(asset: TeadsNativeAsset?, in assetView: UIView?, respondingToSelector selectorLabel: String, withProperty property: String) {

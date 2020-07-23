@@ -16,6 +16,7 @@ import TeadsSDK
 
     // MARK: - MPBannerCustomEvent Overrides
     @objc public override func requestAd(with size: CGSize, customEventInfo info: [AnyHashable: Any]!, adMarkup: String!) {
+
         // Check PID
         guard let rawPid = info[MPAdapterTeadsConstants.teadsPIDKey] as? String, let pid = Int(rawPid) else {
             let error = NSError.from(code: .pidNotFound,
@@ -38,16 +39,20 @@ import TeadsSDK
         banner.load(teadsAdSettings: adSettings)
         currentBanner = banner
     }
+
+    private func updateRatio(_ ratio: CGFloat) {
+        if let width = currentBanner?.frame.width {
+            currentBanner?.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: width, height: width / ratio))
+        }
+    }
 }
 
 // MARK: - TFAAdDelegate Protocol
 
 extension MPAdapterTeadsBanner: TFAAdDelegate {
-    public func didUpdateRatio(_ ad: TFAAdView, ratio: CGFloat) {
-        //will be implemented soon
-    }
 
     public func didReceiveAd(_ ad: TFAAdView, adRatio: CGFloat) {
+        updateRatio(adRatio)
         delegate.bannerCustomEvent(self, didLoadAd: ad)
         delegate.bannerCustomEventWillExpandAd(self)
     }
@@ -88,5 +93,9 @@ extension MPAdapterTeadsBanner: TFAAdDelegate {
 
     public func adDidChangeVolume(_ ad: TFAAdView, muted: Bool) {
         // TODO: What to do ?
+    }
+
+    public func didUpdateRatio(_ ad: TFAAdView, ratio: CGFloat) {
+        updateRatio(ratio)
     }
 }
