@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
     s.name                      = 'MoPub-Teads-Adapters'
-    s.version                   = '4.7.5'
+    s.version                   = '4.7.6'
     s.summary                   = "MoPub Adapter for Teads' iOS SDK"
     s.module_name               = 'TeadsMoPubAdapter'
     s.description               = <<-DESC
@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
     s.source_files              = 'TeadsMoPubAdapter/**/*{.swift}'
     s.swift_versions            = ['4.3', '5.0', '5.1']
 
-    s.dependency                'TeadsSDK', "#{s.version}"
-    s.dependency                'mopub-ios-sdk', '>= 5.6', '< 5.13'
+    s.dependency                'TeadsSDK', "4.7.5"
+    s.dependency                'mopub-ios-sdk', '>= 5.13'
 
 end

@@ -10,61 +10,75 @@ import Foundation
 import MoPub
 import TeadsSDK
 
-@objc public class MPAdapterTeadsBanner: MPBannerCustomEvent {
+@objc public class MPAdapterTeadsBanner: MPInlineAdAdapter, MPThirdPartyInlineAdAdapter {
     // MARK: - Members
     internal var currentBanner: TFACustomAdView?
+    internal var pid: String?
 
     // MARK: - MPBannerCustomEvent Overrides
-    @objc public override func requestAd(with size: CGSize, customEventInfo info: [AnyHashable: Any]!, adMarkup: String!) {
+    @objc public override func requestAd(with size: CGSize, adapterInfo info: [AnyHashable: Any], adMarkup: String?) {
 
         // Check PID
         guard let rawPid = info[MPAdapterTeadsConstants.teadsPIDKey] as? String, let pid = Int(rawPid) else {
             let error = NSError.from(code: .pidNotFound,
                                      description: "No valid PID has been provided to load Teads banner ad.")
-            delegate.bannerCustomEvent(self, didFailToLoadAdWithError: error)
+            logEvent(MPLogEvent.adLoadFailed(forAdapter: className(), error: error))
+            delegate?.inlineAdAdapter(self, didFailToLoadAdWithError: error)
             return
         }
+        self.pid = rawPid
+
+        let adSize = size.width > 0 ? size : MPAdapterTeadsConstants.bannerSize
 
         // Prepare ad settings
-        var adSettings: TeadsAdSettings?
-        if let extraParameters = localExtras {
-            adSettings = try? TeadsAdSettings.instance(fromMopubParameters: extraParameters)
-        }
+        let adSettings = try? TeadsAdSettings.instance(fromMopubParameters: localExtras)
 
         // Load banner
-        let banner = TFACustomAdView(withPid: pid, andDelegate: self)
-        banner.addContextInfo(infoKey: TeadsAdSettings.integrationTypeKey, infoValue: TeadsAdSettings.integrationMopub)
-        banner.addContextInfo(infoKey: TeadsAdSettings.integrationVersionKey, infoValue: MoPub.sharedInstance().version())
-        banner.frame = CGRect(origin: CGPoint.zero, size: size)
-        banner.load(teadsAdSettings: adSettings)
-        currentBanner = banner
+        currentBanner = TFACustomAdView(withPid: pid, andDelegate: self)
+        currentBanner?.addContextInfo(infoKey: TeadsAdSettings.integrationTypeKey, infoValue: TeadsAdSettings.integrationMopub)
+        currentBanner?.addContextInfo(infoKey: TeadsAdSettings.integrationVersionKey, infoValue: MoPub.sharedInstance().version())
+        currentBanner?.frame = CGRect(origin: CGPoint.zero, size: adSize)
+
+        logEvent(MPLogEvent.adLoadAttempt(forAdapter: className(), dspCreativeId: nil, dspName: nil))
+        currentBanner?.load(teadsAdSettings: adSettings)
     }
 
     private func updateRatio(_ ratio: CGFloat) {
-        if let width = currentBanner?.frame.width {
+        if let width = currentBanner?.superview?.frame.width ?? currentBanner?.frame.width {
+            delegate?.inlineAdAdapterWillExpand(self)
             currentBanner?.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: width, height: width / ratio))
         }
+    }
+
+    private func logEvent(_ event: MPLogEvent) {
+        MPLogging.logEvent(event, source: pid, from: Self.self)
+    }
+
+    deinit {
+        currentBanner?.delegate = nil
     }
 }
 
 // MARK: - TFAAdDelegate Protocol
 
 extension MPAdapterTeadsBanner: TFAAdDelegate {
-
     public func didReceiveAd(_ ad: TFAAdView, adRatio: CGFloat) {
+        logEvent(MPLogEvent.adLoadSuccess(forAdapter: className()))
+        logEvent(MPLogEvent.adShowAttempt(forAdapter: className()))
+        logEvent(MPLogEvent.adShowSuccess(forAdapter: className()))
+        delegate?.inlineAdAdapter(self, didLoadAdWithAdView: ad)
         updateRatio(adRatio)
-        delegate.bannerCustomEvent(self, didLoadAd: ad)
-        delegate.bannerCustomEventWillExpandAd(self)
     }
 
     public func didFailToReceiveAd(_ ad: TFAAdView, adFailReason: AdFailReason) {
         let error = NSError.from(code: .loadingFailure,
                                  description: adFailReason.errorMessage)
-        delegate.bannerCustomEvent(self, didFailToLoadAdWithError: error)
+        logEvent(MPLogEvent.adLoadFailed(forAdapter: className(), error: error))
+        delegate?.inlineAdAdapter(self, didFailToLoadAdWithError: error)
     }
 
     public func adClose(_ ad: TFAAdView, userAction: Bool) {
-        delegate.bannerCustomEventDidCollapseAd(self)
+        delegate?.inlineAdAdapterDidCollapse(self)
     }
 
     public func adError(_ ad: TFAAdView, errorMessage: String) {
@@ -72,11 +86,11 @@ extension MPAdapterTeadsBanner: TFAAdDelegate {
     }
 
     public func adBrowserDidOpen(_ ad: TFAAdView) {
-        delegate.bannerCustomEventWillBeginAction(self)
+        delegate?.inlineAdAdapterWillBeginUserAction(self)
     }
 
     public func adBrowserDidClose(_ ad: TFAAdView) {
-        delegate.bannerCustomEventDidFinishAction(self)
+        delegate?.inlineAdAdapterDidEndUserAction(self)
     }
 
     public func adDidOpenFullscreen(_ ad: TFAAdView) {
@@ -97,5 +111,9 @@ extension MPAdapterTeadsBanner: TFAAdDelegate {
 
     public func didUpdateRatio(_ ad: TFAAdView, ratio: CGFloat) {
         updateRatio(ratio)
+    }
+
+    public func adBrowserWillOpen(_ ad: TFAAdView) -> UIViewController? {
+        return delegate?.inlineAdAdapterViewController(forPresentingModalView: self)
     }
 }

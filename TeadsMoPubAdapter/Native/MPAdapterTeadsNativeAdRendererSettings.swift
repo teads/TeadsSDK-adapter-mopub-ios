@@ -10,6 +10,6 @@ import MoPub
 
 @objc public class MPAdapterTeadsNativeAdRendererSettings: NSObject, MPNativeAdRendererSettings {
     @objc public var viewSizeHandler: MPNativeViewSizeHandler!
-    @objc public var renderingViewClass: AnyClass?
+    @objc public var renderingViewClass: (UIView & MPNativeAdRendering).Type?
     @objc public var adViewContainer: UIView?
 }

@@ -7,12 +7,15 @@
 //
 
 import Foundation
+import UIKit
 
 /// Structure defining constants used by Teads adapter.
 public struct MPAdapterTeadsConstants {
     static let teadsPIDKey                      = "PID"
     static let teadsAdapterErrorDomain          = "tv.teads.adapter.mopub"
     static let teadsAdContainerKey              = "adContainer"
+
+    static let bannerSize = CGSize(width: 320, height: 250)
 }
 
 /// Enumeration defining possible errors in Teads adapter.

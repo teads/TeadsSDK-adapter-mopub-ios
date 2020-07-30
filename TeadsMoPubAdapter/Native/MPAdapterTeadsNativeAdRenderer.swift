@@ -10,6 +10,8 @@ import UIKit
 import MoPub
 import TeadsSDK
 
+typealias TeadsUIViewMPNativeAdRendering = UIView & MPNativeAdRendering
+
 @objc public class MPAdapterTeadsNativeAdRenderer: NSObject, MPNativeAdRenderer {
 
     @objc public var viewSizeHandler: MPNativeViewSizeHandler!
@@ -19,16 +21,13 @@ import TeadsSDK
     var adViewContainer: UIView?
 
     /// Publisher adView which is rendering.
-    var adView: UIView?
-
-    /// MPGoogleAdMobNativeAdAdapter instance.
-    var adapter: MPNativeAdAdapter!
+    var adView: TeadsUIViewMPNativeAdRendering?
 
     /// YES if adView is in view hierarchy.
     var adViewInViewHierarchy: Bool?
 
     /// MPNativeAdRendererImageHandler instance.
-    var renderingViewClass: AnyClass?
+    var renderingViewClass: TeadsUIViewMPNativeAdRendering.Type?
 
     /// Renderer settings are objects that allow you to expose configurable properties to the
     /// application. MPAdapterTeadsNativeAdRenderer renderer will be initialized with these settings.
@@ -55,7 +54,6 @@ import TeadsSDK
         guard let adapter = adapter as? MPAdapterTeadsMediatedNativeAd else {
             throw MPNativeAdNSErrorForRenderValueTypeError()
         }
-        self.adapter = adapter
 
         renderTeadsNativeAdView(with: adapter)
 
@@ -67,63 +65,59 @@ import TeadsSDK
 
     /// Creates Teads Native AdView with adapter. We added TeadsNativeAdView assets on
     /// top of MoPub's adView, to track impressions & clicks.
-    func renderTeadsNativeAdView(with adapter: MPNativeAdAdapter) {
+    func renderTeadsNativeAdView(with adapter: MPAdapterTeadsMediatedNativeAd) {
 
-        registerContainer()
-
-        guard let adView = adView as? MPNativeAdRendering,
-            let adapter = adapter as? MPAdapterTeadsMediatedNativeAd else {
-                return
+        registerContainer(adapter: adapter)
+        guard let adView = adView else {
+            return
         }
 
         // Title
         register(asset: adapter.teadsNativeAd.title,
                  in: adView.nativeTitleTextLabel?(),
-                 respondingToSelector: "nativeTitleTextLabel",
-                 withProperty: kAdTitleKey)
+                 withProperty: kAdTitleKey,
+                 adapter: adapter)
 
         // Main Text
         register(asset: adapter.teadsNativeAd.content,
                  in: adView.nativeMainTextLabel?(),
-                 respondingToSelector: "nativeMainTextLabel",
-                 withProperty: kAdTextKey)
+                 withProperty: kAdTextKey,
+                 adapter: adapter)
 
         // Call to action
         register(asset: adapter.teadsNativeAd.callToAction,
                  in: adView.nativeCallToActionTextLabel?(),
-                 respondingToSelector: "nativeCallToActionTextLabel",
-                 withProperty: kAdCTATextKey)
+                 withProperty: kAdCTATextKey,
+                 adapter: adapter)
 
         // Icon image
         register(asset: adapter.teadsNativeAd.iconUrl,
                  in: adView.nativeIconImageView?(),
-                 respondingToSelector: "nativeIconImageView",
-                 withProperty: kAdIconImageKey)
+                 withProperty: kAdIconImageKey,
+                 adapter: adapter)
 
         // Main image
         register(asset: adapter.teadsNativeAd.imageUrl,
                  in: adView.nativeMainImageView?(),
-                 respondingToSelector: "nativeMainImageView",
-                 withProperty: kAdMainImageKey)
+                 withProperty: kAdMainImageKey,
+                 adapter: adapter)
 
         // Advertiser
         register(asset: adapter.teadsNativeAd.sponsored,
                  in: adView.nativeSponsoredByCompanyTextLabel?(),
-                 respondingToSelector: "nativeSponsoredByCompanyTextLabel",
-                 withProperty: kAdSponsoredByCompanyKey)
+                 withProperty: kAdSponsoredByCompanyKey,
+                 adapter: adapter)
 
     }
 
-    func registerContainer() {
-        guard let adapter = adapter as? MPAdapterTeadsMediatedNativeAd,
-            let adViewContainerFrame = adViewContainer?.frame else {
+    func registerContainer(adapter: MPAdapterTeadsMediatedNativeAd) {
+        guard let adViewContainerFrame = adViewContainer?.frame else {
             return
         }
-        if let renderingViewClass = renderingViewClass,
-            renderingViewClass.responds(to: Selector("nibForAd")) {
-            adView = renderingViewClass.nibForAd?()?.instantiate(withOwner: self, options: nil).first as? UIView
-        } else if let renderingViewClass = renderingViewClass as? UIView.Type {
-            adView = renderingViewClass.init(frame: adViewContainerFrame)
+        if let adView = renderingViewClass?.nibForAd?()?.instantiate(withOwner: self, options: nil).first as? TeadsUIViewMPNativeAdRendering {
+            self.adView = adView
+        } else {
+            adView = renderingViewClass?.init(frame: adViewContainerFrame)
         }
         guard let adView = adView else {
             return
@@ -133,12 +127,8 @@ import TeadsSDK
         adapter.teadsNativeAd.registerContainer(in: adView)
     }
 
-    func register(asset: TeadsNativeAsset?, in assetView: UIView?, respondingToSelector selectorLabel: String, withProperty property: String) {
-        guard let adapter = adapter as? MPAdapterTeadsMediatedNativeAd,
-            let adView = adView as? MPNativeAdRendering else {
-                return
-        }
-        if adView.responds(to: Selector(selectorLabel)), let assetView = assetView, let asset = asset {
+    func register(asset: TeadsNativeAsset?, in assetView: UIView?, withProperty property: String, adapter: MPAdapterTeadsMediatedNativeAd) {
+        if let assetView = assetView, let asset = asset {
             adapter.teadsNativeAd.register(asset: asset, in: assetView)
             if let text = adapter.properties[property] as? String {
                 if let label = assetView as? UILabel {

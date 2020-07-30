@@ -1,5 +1,13 @@
 # Teads - iOS MoPub Mediation Adapter
 
+### v4.7.6
+_2020-07-30_
+- support MoPub 5.13+ dependency
+
+### v4.7.5
+_2020-07-23_
+- add method to resize view in mediation
+
 ### v4.7.4
 _2020-07-20_
 - Fixes and improvements
