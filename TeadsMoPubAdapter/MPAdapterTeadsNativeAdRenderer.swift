@@ -133,10 +133,12 @@ typealias TeadsUIViewMPNativeAdRendering = UIView & MPNativeAdRendering
             if let text = adapter.properties[property] as? String {
                 if let label = assetView as? UILabel {
                     label.text = text
-                } else if let imageView = assetView as? UIImageView {
-                    UIImage.loadSync(url: text) { (image) in
-                        imageView.image = image
-                    }
+                } else if let imageView = assetView as? UIImageView, let imageAsset = asset as? TeadsNativeImageAsset {
+                    imageAsset.loadImage(success: { image in
+                        DispatchQueue.main.async {
+                            imageView.image = image
+                        }
+                    })
                 }
             }
         }
