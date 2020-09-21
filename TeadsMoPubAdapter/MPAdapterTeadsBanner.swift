@@ -45,7 +45,6 @@ import TeadsSDK
 
     private func updateRatio(_ ratio: CGFloat) {
         if let width = currentBanner?.superview?.frame.width ?? currentBanner?.frame.width {
-            delegate?.inlineAdAdapterWillExpand(self)
             currentBanner?.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: width, height: width / ratio))
         }
     }
