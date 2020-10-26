@@ -1,5 +1,9 @@
 # Teads - iOS MoPub Mediation Adapter
 
+### v4.7.9
+_2020-10-26_
+- fix adView resize issue when `superview.height` equals 0
+
 ### v4.7.8
 _2020-09-21_
  - Update version to match Teads SDK

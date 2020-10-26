@@ -37,3 +37,9 @@ extension TeadsAdSettings: MPMediationSettingsProtocol {
         localExtras = extra
     }
 }
+
+extension CGFloat {
+    var positive: CGFloat? {
+        return self > 0 ? self : nil
+    }
+}

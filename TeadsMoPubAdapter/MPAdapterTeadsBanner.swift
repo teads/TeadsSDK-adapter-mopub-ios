@@ -44,7 +44,7 @@ import TeadsSDK
     }
 
     private func updateRatio(_ ratio: CGFloat) {
-        if let width = currentBanner?.superview?.frame.width ?? currentBanner?.frame.width {
+        if let width = currentBanner?.superview?.frame.width.positive ?? currentBanner?.frame.width.positive {
             currentBanner?.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: width, height: width / ratio))
         }
     }
@@ -113,6 +113,7 @@ extension MPAdapterTeadsBanner: TFAAdDelegate {
     }
 
     public func adBrowserWillOpen(_ ad: TFAAdView) -> UIViewController? {
+        logEvent(MPLogEvent.adWillPresentModal(forAdapter: className()))
         return delegate?.inlineAdAdapterViewController(forPresentingModalView: self)
     }
 }
