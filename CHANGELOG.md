@@ -1,7 +1,7 @@
 # Teads - iOS MoPub Mediation Adapter
 
 ### v4.8.0
-_2020-11-17_
+_2020-11-18_
 - Update version to match TeadsSDK
 
 ### v4.7.9
