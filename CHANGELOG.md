@@ -1,5 +1,9 @@
 # Teads - iOS MoPub Mediation Adapter
 
+### v4.8.4
+_2021-02-12_
+- fix a crash that could happen using `TeadsAdSettings.subscribeAdResizeDelegate`
+
 ### v4.8.0
 _2020-11-18_
 - Update version to match TeadsSDK
