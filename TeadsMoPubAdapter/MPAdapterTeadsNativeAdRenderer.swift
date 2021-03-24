@@ -7,8 +7,13 @@
 //
 
 import UIKit
-import MoPub
 import TeadsSDK
+
+#if canImport(MoPubSDK)
+import MoPubSDK
+#else
+import MoPub
+#endif
 
 typealias TeadsUIViewMPNativeAdRendering = UIView & MPNativeAdRendering
 

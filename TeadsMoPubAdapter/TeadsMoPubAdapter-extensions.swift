@@ -7,8 +7,13 @@
 //
 
 import Foundation
-import MoPub
 import TeadsSDK
+
+#if canImport(MoPubSDK)
+import MoPubSDK
+#else
+import MoPub
+#endif
 
 @objc extension MPAdView {
     public func register(teadsAdSettings: TeadsAdSettings) {

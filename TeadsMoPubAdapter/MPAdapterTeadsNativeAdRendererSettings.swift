@@ -6,7 +6,11 @@
 //  Copyright © 2020 teads. All rights reserved.
 //
 
+#if canImport(MoPubSDK)
+import MoPubSDK
+#else
 import MoPub
+#endif
 
 @objc public class MPAdapterTeadsNativeAdRendererSettings: NSObject, MPNativeAdRendererSettings {
     @objc public var viewSizeHandler: MPNativeViewSizeHandler!

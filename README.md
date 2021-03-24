@@ -8,7 +8,7 @@ If you want to display Teads ads in your iOS application through MoPub mediation
 - ![Platform: iOS 10+](https://img.shields.io/badge/Platform-iOS%2010%2B-blue.svg?style=flat)
 - ![Xcode: 11.0+](https://img.shields.io/badge/Xcode-11.0+-blue.svg?style=flat)
 - ![MoPub SDK: 5.13+](https://img.shields.io/badge/MoPub%20SDK-5.13+-blue.svg?style=flat)
-- ![Teads SDK: 4.8.4+](https://img.shields.io/badge/Teads%20SDK-4.8.4+-blue.svg?style=flat)
+- ![Teads SDK: 4.8.5+](https://img.shields.io/badge/Teads%20SDK-4.8.5+-blue.svg?style=flat)
 
 ## Features
 

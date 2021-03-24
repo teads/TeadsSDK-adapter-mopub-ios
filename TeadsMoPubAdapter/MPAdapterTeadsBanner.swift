@@ -7,8 +7,13 @@
 //
 
 import Foundation
-import MoPub
 import TeadsSDK
+
+#if canImport(MoPubSDK)
+import MoPubSDK
+#else
+import MoPub
+#endif
 
 @objc public class MPAdapterTeadsBanner: MPInlineAdAdapter, MPThirdPartyInlineAdAdapter {
     // MARK: - Members
