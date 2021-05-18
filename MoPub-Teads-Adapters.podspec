@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
     s.name                      = 'MoPub-Teads-Adapters'
-    s.version                   = '4.8.6'
+    s.version                   = '4.8.7'
     s.summary                   = "MoPub Adapter for Teads' iOS SDK"
     s.module_name               = 'TeadsMoPubAdapter'
     s.description               = <<-DESC
@@ -22,9 +22,5 @@ Pod::Spec.new do |s|
 
     s.dependency                'TeadsSDK', s.version.to_s
     s.dependency                'mopub-ios-sdk', '>= 5.13'
-
-    s.pod_target_xcconfig       = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64 arm64e armv7 armv7s', 'EXCLUDED_ARCHS[sdk=iphoneos*]': 'i386 x86_64' }
-    s.user_target_xcconfig      = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64 arm64e armv7 armv7s', 'EXCLUDED_ARCHS[sdk=iphoneos*]': 'i386 x86_64' }
-   
 
 end
