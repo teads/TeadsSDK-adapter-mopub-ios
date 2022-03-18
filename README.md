@@ -1,7 +1,16 @@
 # Teads - iOS MoPub Mediation Adapter
 > Mediation adapter to be used in conjunction with MoPub to deliver Teads ads on iOS devices.
 
-If you want to display Teads ads in your iOS application through MoPub mediation, you’re at the right place.
+> **⚠️ Mopub to AppLovin migration ⚠️**
+>
+> MoPub has been acquired by AppLovin and will sunset on March 31, 2022 in favor of AppLovin. Teads supports MAX AppLovin Mediation adapter, you can check it out on [official documentation](https://support.teads.tv/support/solutions/articles/36000357700-inread-applovin-mediation).
+> 
+> Using cocoapods, you need to update your podfile.
+> ```ruby
+> platform :ios, '10.0'
+> pod 'TeadsAppLovinAdapter', '~> 5.0'
+> ```
+> [Teads Sample App](https://github.com/teads/TeadsSDK-iOS) includes MAX AppLovin Integration
 
 ## Requirements
 
